@@ -2,7 +2,7 @@ const express = require('express');
 const debug = require('debug')('app:routes');
 const router = express.Router();
 const CURR_ROUTE = '/clocks';
-const queries = require('../database/queries/clocks');
+const queries = require('../database/queries/clock');
 
 //Log
 router.use((req, res, next) => {

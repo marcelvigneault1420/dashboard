@@ -1,15 +1,16 @@
-CREATE TABLE IF NOT EXISTS posts(
+CREATE TABLE IF NOT EXISTS post(
     id SERIAL PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
-    body TEXT NOT NULL
+    body TEXT NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT NOW()
 );
 
-CREATE TABLE IF NOT EXISTS clocks(
+CREATE TABLE IF NOT EXISTS clock(
     id SERIAL PRIMARY KEY,
-    clock_in TIMESTAMP NOT NULL,
-    clock_out TIMESTAMP
+    in_time TIMESTAMP NOT NULL,
+    out_time TIMESTAMP
 );
 
-CREATE INDEX IF NOT EXISTS clocks_in_recent ON clocks ( clock_in DESC);
-CREATE INDEX IF NOT EXISTS clocks_in_range ON clocks ( date(clock_in) DESC);
-CREATE INDEX IF NOT EXISTS clocks_out_null ON clocks( clock_out ) WHERE (clock_out IS NULL);
+CREATE INDEX IF NOT EXISTS in_time_recent ON clock ( in_time DESC);
+CREATE INDEX IF NOT EXISTS in_time_range ON clock ( date(in_time) DESC);
+CREATE INDEX IF NOT EXISTS out_time_null ON clock ( out_time ) WHERE (out_time IS NULL);
