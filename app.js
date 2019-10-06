@@ -44,13 +44,12 @@ app.use('/posts', postsRoute);
 app.use('/clocks', clocksRoute);
 //404 routes
 app.use((req, res, next) => {
-    next({ message: 'Route not found', status: 404 });
+    res.status(404).json({ error: { message: 'Route not found' } });
 });
 //Error handling route
 app.use((err, req, res, next) => {
-    const status = err.status || 500;
-    const message = err.custommessage || 'Unexpected error';
-    res.status(status).json({ error: { message, status } });
+    console.error(err.message || 'No message in the error');
+    res.status(500).json({ error: { message: 'Unexpected error' } });
 });
 
 /**
