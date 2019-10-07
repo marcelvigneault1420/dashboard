@@ -17,7 +17,6 @@ const clockIn = (req, res, next) => {
                         });
                     })
                     .catch(err => {
-                        console.log(err.message);
                         next(err);
                     });
             } else {
@@ -29,7 +28,6 @@ const clockIn = (req, res, next) => {
             }
         })
         .catch(err => {
-            console.log(err.message);
             next(err);
         });
 };
@@ -46,16 +44,15 @@ const clockOut = (req, res, next) => {
                 });
             } else {
                 pool.query(
-                    'UPDATE clock SET out_time = NOW() WHERE out_time IS NULL RETURNING out_time'
+                    'UPDATE clock SET out_time = NOW() WHERE out_time IS NULL RETURNING in_time, out_time'
                 )
                     .then(results2 => {
                         res.status(201).json({
                             message: 'Clocked out',
-                            time: results2.rows[0].out_time
+                            clock: results2.rows[0]
                         });
                     })
                     .catch(err => {
-                        console.log(err.message);
                         next(err);
                     });
             }

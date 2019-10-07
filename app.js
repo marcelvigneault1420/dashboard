@@ -10,6 +10,7 @@ const httpLog = require('debug')('app:http');
 //Routes
 const postsRoute = require('./routes/posts');
 const clocksRoute = require('./routes/clocks');
+const accountsRoute = require('./routes/accounts');
 
 //Middlewares
 const bodyParser = require('body-parser');
@@ -42,6 +43,7 @@ app.use((req, res, next) => {
 //Custom routes
 app.use('/posts', postsRoute);
 app.use('/clocks', clocksRoute);
+app.use('/accounts', accountsRoute);
 //404 routes
 app.use((req, res, next) => {
     res.status(404).json({ error: { message: 'Route not found' } });

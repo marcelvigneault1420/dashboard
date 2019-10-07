@@ -1,8 +1,8 @@
 const express = require('express');
 const debug = require('debug')('app:routes');
 const router = express.Router();
-const CURR_ROUTE = '/users';
-const queries = require('../database/queries/user');
+const CURR_ROUTE = '/accounts';
+const queries = require('../database/queries/account');
 
 //Log
 router.use((req, res, next) => {
