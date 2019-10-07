@@ -6,6 +6,7 @@ const moment = require('moment');
 //Logs
 const log = require('debug')('app');
 const httpLog = require('debug')('app:http');
+const errorlog = require('debug')('app:error');
 
 //Routes
 const postsRoute = require('./routes/posts');
@@ -50,7 +51,7 @@ app.use((req, res, next) => {
 });
 //Error handling route
 app.use((err, req, res, next) => {
-    console.error(err.message || 'No message in the error');
+    errorlog(err);
     res.status(500).json({ error: { message: 'Unexpected error' } });
 });
 

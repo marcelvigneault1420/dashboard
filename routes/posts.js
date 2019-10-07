@@ -6,17 +6,17 @@ const { pool } = require('../database/config');
 
 //Log
 router.use((req, res, next) => {
-    debug(`ROUTE Entering ${CURR_ROUTE}`);
+    debug(`Entering ${CURR_ROUTE}`);
     next();
 });
 
 //GET
 router.get('/', (req, res, next) => {
-    debug(`ROUTE ${req.method} on ${CURR_ROUTE}/`);
+    debug(`${req.method} on ${CURR_ROUTE}/`);
     res.status(200).json({ message: 'GET /posts' });
 });
 router.get('/:id', (req, res, next) => {
-    debug(`ROUTE ${req.method} on ${CURR_ROUTE}/:id`);
+    debug(`${req.method} on ${CURR_ROUTE}/:id`);
     res.status(200).json({
         message: 'GET /post/id',
         id: req.params.id
@@ -25,7 +25,7 @@ router.get('/:id', (req, res, next) => {
 
 //POST
 router.post('/', (req, res, next) => {
-    debug(`ROUTE ${req.method} on ${CURR_ROUTE}/`);
+    debug(`${req.method} on ${CURR_ROUTE}/`);
     res.status(201).json({
         message: 'POST /posts',
         body: req.body
@@ -34,7 +34,7 @@ router.post('/', (req, res, next) => {
 
 //PATCH
 router.patch('/:id', (req, res, next) => {
-    debug(`ROUTE ${req.method} on ${CURR_ROUTE}/:id`);
+    debug(`${req.method} on ${CURR_ROUTE}/:id`);
     res.status(200).json({
         message: 'DELETE /post/id',
         id: req.params.id,
@@ -44,7 +44,7 @@ router.patch('/:id', (req, res, next) => {
 
 //DELETE
 router.delete('/:id', (req, res, next) => {
-    debug(`ROUTE ${req.method} on ${CURR_ROUTE}/:id`);
+    debug(`${req.method} on ${CURR_ROUTE}/:id`);
     res.status(200).json({
         message: 'DELETE /post/id',
         id: req.params.id
@@ -53,7 +53,7 @@ router.delete('/:id', (req, res, next) => {
 
 //Log
 router.use((req, res, next) => {
-    debug(`ROUTE NOT FOUND ${CURR_ROUTE}`);
+    debug(`NOT FOUND ${CURR_ROUTE}`);
     next();
 });
 

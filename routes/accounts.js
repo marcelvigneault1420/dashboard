@@ -2,21 +2,34 @@ const express = require('express');
 const debug = require('debug')('app:routes');
 const router = express.Router();
 const CURR_ROUTE = '/accounts';
-const queries = require('../database/queries/account');
+const Account = require('../database/models/Account');
 
 //Log
 router.use((req, res, next) => {
-    debug(`ROUTE Entering ${CURR_ROUTE}`);
+    debug(`Entering ${CURR_ROUTE}`);
     next();
 });
 
 //POST
-router.post('/signup', queries.signUp);
-router.post('/signin', queries.signIn);
+router.post('/signup', (req, res, next) => {
+    debug(`${req.method} on ${CURR_ROUTE}/signup`);
+    Account.signUp(req.body)
+        .then(result => {
+            if (result.success) {
+                res.status(201).json({
+                    account: result.account,
+                    message: result.message
+                });
+            } else {
+                res.status(409).json({ error: { message: result.message } });
+            }
+        })
+        .catch(err => next(err));
+});
 
 //Log
 router.use((req, res, next) => {
-    debug(`ROUTE NOT FOUND ${CURR_ROUTE}`);
+    debug(`NOT FOUND ${CURR_ROUTE}`);
     next();
 });
 
