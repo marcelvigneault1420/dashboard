@@ -36,9 +36,9 @@ app.use((req, res, next) => {
 /**
  * Routes
  */
-//API route
-const apiRoute = require('./routes/api');
-app.use('/api', apiRoute);
+//API
+const apiServer = require('./api');
+app.use('/api', apiServer);
 //Front-end route
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, 'client/build')));

@@ -3,6 +3,7 @@ const debug = require('debug')('app:routes');
 const router = express.Router();
 const CURR_ROUTE = '/api';
 const bodyParser = require('body-parser');
+const checkAuth = require('./middleware/check-auth');
 
 /**
  * Middleware
@@ -19,12 +20,13 @@ router.use((req, res, next) => {
  * Routes
  */
 //API routes
-const postsRoute = require('./posts');
-const clocksRoute = require('./clocks');
-const accountsRoute = require('./accounts');
+const accountsRoute = require('./routes/accounts');
+const postsRoute = require('./routes/posts');
+const clocksRoute = require('./routes/clocks');
+router.use('/accounts', accountsRoute);
+router.use(checkAuth);
 router.use('/posts', postsRoute);
 router.use('/clocks', clocksRoute);
-router.use('/accounts', accountsRoute);
 //404
 router.use((req, res, next) => {
     debug(`404 NOT FOUND in ${CURR_ROUTE} path: ${req.path}`);

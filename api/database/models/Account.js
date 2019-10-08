@@ -52,6 +52,52 @@ class Account {
             }
         });
     }
+
+    static signIn({ email, password }) {
+        return new Promise((resolve, reject) => {
+            debug(`signIn on ${CURR_TABLE}`);
+            if (!validator.isEmail(email)) {
+                debug(`Error: Email not valid`);
+                resolve({
+                    success: false,
+                    message: 'Email not valid'
+                });
+            } else {
+                pool.query(
+                    `SELECT id, password FROM account WHERE email = $1`,
+                    [email]
+                )
+                    .then(result => {
+                        if (result.rowCount !== 1) {
+                            debug(`Error: Email not found`);
+                            resolve({
+                                success: false,
+                                message: 'Email not found'
+                            });
+                        } else {
+                            bcrypt
+                                .compare(password, result.rows[0].password)
+                                .then(isRight => {
+                                    if (isRight) {
+                                        resolve({
+                                            success: true,
+                                            id: result.rows[0].id
+                                        });
+                                    } else {
+                                        debug(`Error: Invalid password`);
+                                        resolve({
+                                            success: false,
+                                            message: 'Invalid password'
+                                        });
+                                    }
+                                })
+                                .catch(err => reject(err));
+                        }
+                    })
+                    .catch(err => reject(err));
+            }
+        });
+    }
 }
 
 module.exports = Account;

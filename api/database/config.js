@@ -26,7 +26,7 @@ pool.on('error', err => {
 });
 
 const create_database = () => {
-    let sql = fs.readFileSync('./database/db-creation.sql').toString();
+    let sql = fs.readFileSync('./api/database/db-creation.sql').toString();
     pool.query(sql)
         .then(results => {
             console.log('Database updated');
