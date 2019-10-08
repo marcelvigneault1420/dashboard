@@ -11,6 +11,7 @@ const errorlog = require('debug')('app:error');
 //Middlewares
 const cors = require('cors');
 const ENV = process.env.NODE_ENV;
+const path = require('path');
 
 //Env variables
 require('dotenv').config();
@@ -39,12 +40,21 @@ app.use((req, res, next) => {
 const apiRoute = require('./routes/api');
 app.use('/api', apiRoute);
 //Front-end route
-app.use('/', express.static('./public'));
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.join(__dirname, 'client/build')));
+    app.get('/*', function(req, res) {
+        res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+    });
+} else {
+    app.use(express.static(path.join(__dirname, 'client/public')));
+    app.get('/*', function(req, res) {
+        res.sendFile(path.join(__dirname, 'client/public', 'index.html'));
+    });
+}
 //404 routes
 app.use((req, res, next) => {
-    httpLog(`404 NOT FOUND ${req.path}`);
-    res.status(404).write('<html><body><h1>404 Page not found');
-    res.end();
+    httpLog(`404 NOT FOUND path: ${req.path}`);
+    res.status(404).end();
 });
 //Error handling route
 app.use((err, req, res, next) => {

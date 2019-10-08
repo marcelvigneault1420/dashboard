@@ -6,7 +6,8 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "start": "cross-env NODE_ENV=production node app.js",
-        "dev": "cross-env DEBUG=app* cross-env NODE_ENV=development nodemon app.js",
+        "server": "cross-env DEBUG=app* cross-env NODE_ENV=development nodemon app.js",
+        "client": "npm start --prefix client",
         "db": "node -e \"require('./database/config').create_database()\""
     },
     "keywords": [

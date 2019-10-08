@@ -27,7 +27,7 @@ router.use('/clocks', clocksRoute);
 router.use('/accounts', accountsRoute);
 //404
 router.use((req, res, next) => {
-    debug(`404 NOT FOUND in ${CURR_ROUTE}`);
+    debug(`404 NOT FOUND in ${CURR_ROUTE} path: ${req.path}`);
     res.status(404).json({ error: { message: 'Route not found' } });
 });
 
