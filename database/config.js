@@ -18,7 +18,11 @@ const pool = new pg.Pool({
 });
 
 pool.on('connect', () => {
-    debug(`Connected to db ${CONN_STRING}`);
+    debug(`Connected to db postgresql`);
+});
+
+pool.on('error', err => {
+    debug(`DB ERROR: ${err}`);
 });
 
 const create_database = () => {

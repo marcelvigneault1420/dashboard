@@ -27,10 +27,4 @@ router.post('/signup', (req, res, next) => {
         .catch(err => next(err));
 });
 
-//Log
-router.use((req, res, next) => {
-    debug(`NOT FOUND ${CURR_ROUTE}`);
-    next();
-});
-
 module.exports = router;

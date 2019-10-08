@@ -8,13 +8,7 @@ const log = require('debug')('app');
 const httpLog = require('debug')('app:http');
 const errorlog = require('debug')('app:error');
 
-//Routes
-const postsRoute = require('./routes/posts');
-const clocksRoute = require('./routes/clocks');
-const accountsRoute = require('./routes/accounts');
-
 //Middlewares
-const bodyParser = require('body-parser');
 const cors = require('cors');
 const ENV = process.env.NODE_ENV;
 
@@ -28,9 +22,6 @@ const PORT = process.env.PORT || process.env.DEV_PORT;
  */
 //CORS
 app.use(cors());
-//POST body parser
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
 //Request logger
 app.use((req, res, next) => {
     httpLog(
@@ -44,18 +35,18 @@ app.use((req, res, next) => {
 /**
  * Routes
  */
-//Custom routes
-app.use('/posts', postsRoute);
-app.use('/clocks', clocksRoute);
-app.use('/accounts', accountsRoute);
-//404 routes
-app.use((req, res, next) => {
-    res.status(404).json({ error: { message: 'Route not found' } });
-});
+//API route
+const apiRoute = require('./routes/api');
+app.use('/api', apiRoute);
 //Error handling route
 app.use((err, req, res, next) => {
     errorlog(err);
     res.status(500).json({ error: { message: 'Unexpected error' } });
+});
+//404 routes
+app.use((req, res, next) => {
+    httpLog(`404 NOT FOUND ${req.path}`);
+    res.status(404).json({ error: { message: 'Route not found' } });
 });
 
 /**

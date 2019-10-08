@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const debug = require('debug')('app:routes');
 const CURR_ROUTE = '/posts';
-const { pool } = require('../database/config');
 
 //Log
 router.use((req, res, next) => {
@@ -49,12 +48,6 @@ router.delete('/:id', (req, res, next) => {
         message: 'DELETE /post/id',
         id: req.params.id
     });
-});
-
-//Log
-router.use((req, res, next) => {
-    debug(`NOT FOUND ${CURR_ROUTE}`);
-    next();
 });
 
 module.exports = router;
