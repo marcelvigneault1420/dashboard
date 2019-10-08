@@ -25,5 +25,10 @@ const accountsRoute = require('./accounts');
 router.use('/posts', postsRoute);
 router.use('/clocks', clocksRoute);
 router.use('/accounts', accountsRoute);
+//404
+router.use((req, res, next) => {
+    debug(`404 NOT FOUND in ${CURR_ROUTE}`);
+    res.status(404).json({ error: { message: 'Route not found' } });
+});
 
 module.exports = router;

@@ -38,15 +38,18 @@ app.use((req, res, next) => {
 //API route
 const apiRoute = require('./routes/api');
 app.use('/api', apiRoute);
+//Front-end route
+app.use('/', express.static('./public'));
+//404 routes
+app.use((req, res, next) => {
+    httpLog(`404 NOT FOUND ${req.path}`);
+    res.status(404).write('<html><body><h1>404 Page not found');
+    res.end();
+});
 //Error handling route
 app.use((err, req, res, next) => {
     errorlog(err);
     res.status(500).json({ error: { message: 'Unexpected error' } });
-});
-//404 routes
-app.use((req, res, next) => {
-    httpLog(`404 NOT FOUND ${req.path}`);
-    res.status(404).json({ error: { message: 'Route not found' } });
 });
 
 /**
