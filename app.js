@@ -16,9 +16,12 @@ const accountsRoute = require('./routes/accounts');
 //Middlewares
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const ENV = process.env.NODE_ENV;
 
 //Env variables
 require('dotenv').config();
+
+const PORT = process.env.PORT || process.env.DEV_PORT;
 
 /**
  * Middlewares
@@ -58,7 +61,7 @@ app.use((err, req, res, next) => {
 /**
  * Server listener
  */
-app.listen(process.env.PORT, () => {
-    console.log(`Server started on port ${process.env.PORT}`);
+app.listen(PORT, () => {
+    console.log(`Server started on port ${PORT}... | env: ${ENV}`);
     log('Debug mode enabled');
 });
