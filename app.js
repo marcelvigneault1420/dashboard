@@ -45,11 +45,6 @@ if (process.env.NODE_ENV === 'production') {
     app.get('/*', function(req, res) {
         res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
     });
-} else {
-    app.use(express.static(path.join(__dirname, 'client/public')));
-    app.get('/*', function(req, res) {
-        res.sendFile(path.join(__dirname, 'client/public', 'index.html'));
-    });
 }
 //404 routes
 app.use((req, res, next) => {

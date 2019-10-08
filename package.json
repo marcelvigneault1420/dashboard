@@ -4,11 +4,11 @@
     "description": "My first api without tutorial",
     "main": "app.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "cross-env NODE_ENV=production node app.js",
+        "db": "node -e \"require('./database/config').create_database()\"",
         "server": "cross-env DEBUG=app* cross-env NODE_ENV=development nodemon app.js",
         "client": "npm start --prefix client",
-        "db": "node -e \"require('./database/config').create_database()\""
+        "build": "npm install && npm run db && cd client && npm install && npm run build && cd ..",
+        "start": "cross-env NODE_ENV=production node app.js"
     },
     "keywords": [
         "nodejs",
