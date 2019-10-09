@@ -4,7 +4,7 @@
     "description": "My first api without tutorial",
     "main": "app.js",
     "scripts": {
-        "db": "node -e \"require('./database/config').create_database()\"",
+        "db": "node -e \"require('./api/database/config').create_database()\"",
         "server": "cross-env DEBUG=app* cross-env NODE_ENV=development nodemon app.js",
         "client": "npm start --prefix client",
         "build": "npm install && npm run db && cd client && npm install && npm run build && cd ..",
@@ -21,7 +21,7 @@
     "author": "Charles Vigneault",
     "license": "MIT",
     "dependencies": {
-        "bcrypt": "^3.0.6",
+        "bcryptjs": "^2.4.3",
         "body-parser": "^1.19.0",
         "cors": "^2.8.5",
         "cross-env": "^6.0.3",

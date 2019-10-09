@@ -1,5 +1,5 @@
 const { pool } = require('../config');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const debug = require('debug')('app:database');
 const CURR_TABLE = 'Account';
 const validator = require('validator');
