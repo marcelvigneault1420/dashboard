@@ -3,14 +3,15 @@ const debug = require('debug')('app:database');
 const CURR_TABLE = 'Clock';
 
 class Clock {
-    static clockIn() {
+    static clockIn(userId) {
         return new Promise((resolve, reject) => {
             debug(`clockIn on ${CURR_TABLE}`);
             pool.query('SELECT COUNT(*) FROM clock WHERE out_time IS NULL')
                 .then(results => {
                     if (results.rows[0].count === '0') {
                         pool.query(
-                            'INSERT INTO clock(in_time) VALUES (NOW()) RETURNING in_time'
+                            'INSERT INTO clock(account_id, in_time) VALUES ($1, NOW()) RETURNING in_time',
+                            [userId]
                         )
                             .then(results2 => {
                                 debug(`Success`);
@@ -35,10 +36,13 @@ class Clock {
                 });
         });
     }
-    static clockOut() {
+    static clockOut(userId) {
         return new Promise((resolve, reject) => {
             debug(`clockOut on ${CURR_TABLE}`);
-            pool.query('SELECT COUNT(*) FROM clock WHERE out_time IS NULL')
+            pool.query(
+                'SELECT COUNT(*) FROM clock WHERE account_id = $1 AND out_time IS NULL',
+                [userId]
+            )
                 .then(results => {
                     if (results.rows[0].count === '0') {
                         debug(`Error: Not clocked in`);
