@@ -13,7 +13,7 @@ router.use((req, res, next) => {
 //POST
 router.post('/in', (req, res, next) => {
     debug(`${req.method} on ${CURR_ROUTE}/in`);
-    Clock.clockIn()
+    Clock.clockIn(req.userData.id)
         .then(result => {
             if (result.success) {
                 res.status(201).json({
@@ -28,7 +28,7 @@ router.post('/in', (req, res, next) => {
 });
 router.post('/out', (req, res, next) => {
     debug(`${req.method} on ${CURR_ROUTE}/out`);
-    Clock.clockOut()
+    Clock.clockOut(req.userData.id)
         .then(result => {
             if (result.success) {
                 res.status(201).json({

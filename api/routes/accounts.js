@@ -37,7 +37,7 @@ router.post('/signin', (req, res, next) => {
                     { id: result.id, email: req.body.email },
                     process.env.JWT_KEY,
                     {
-                        expiresIn: '5m'
+                        expiresIn: '2h'
                     }
                 );
 
