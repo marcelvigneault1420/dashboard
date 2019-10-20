@@ -23,10 +23,13 @@ router.use((req, res, next) => {
 const accountsRoute = require('./routes/accounts');
 const postsRoute = require('./routes/posts');
 const clocksRoute = require('./routes/clocks');
+const todosRoute = require('./routes/todos');
+
 router.use('/accounts', accountsRoute);
 router.use(checkAuth);
 router.use('/posts', postsRoute);
 router.use('/clocks', clocksRoute);
+router.use('/todos', todosRoute);
 //404
 router.use((req, res, next) => {
     debug(`404 NOT FOUND in ${CURR_ROUTE} path: ${req.path}`);

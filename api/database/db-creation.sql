@@ -1,3 +1,12 @@
+CREATE TABLE IF NOT EXISTS account(
+    id SERIAL PRIMARY KEY,
+    email VARCHAR(200),
+    password VARCHAR(255),
+    created_at TIMESTAMP NOT NULL DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS email_search ON account ( email );
+
 CREATE TABLE IF NOT EXISTS post(
     id SERIAL PRIMARY KEY,
     account_id INTEGER NOT NULL REFERENCES account(id) ON DELETE CASCADE,
@@ -5,6 +14,8 @@ CREATE TABLE IF NOT EXISTS post(
     body TEXT NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT NOW()
 );
+
+CREATE INDEX IF NOT EXISTS post_recent ON post ( account_id, created_at DESC);
 
 CREATE TABLE IF NOT EXISTS clock(
     id SERIAL PRIMARY KEY,
@@ -17,13 +28,12 @@ CREATE INDEX IF NOT EXISTS in_time_recent ON clock ( account_id, in_time DESC);
 CREATE INDEX IF NOT EXISTS in_time_range ON clock ( account_id, date(in_time) DESC);
 CREATE INDEX IF NOT EXISTS out_time_null ON clock ( account_id ) WHERE (out_time IS NULL);
 
-CREATE TABLE IF NOT EXISTS account(
+CREATE TABLE IF NOT EXISTS todo(
     id SERIAL PRIMARY KEY,
-    email VARCHAR(200),
-    password VARCHAR(255),
+    account_id INTEGER NOT NULL REFERENCES account(id) ON DELETE CASCADE,
+    name VARCHAR(255) NOT NULL,
+    done BOOLEAN NOT NULL DEFAULT FALSE,
     created_at TIMESTAMP NOT NULL DEFAULT NOW()
 );
 
-CREATE INDEX IF NOT EXISTS email_search ON account ( email );
-
-
+CREATE INDEX IF NOT EXISTS todo_recent ON todo ( account_id, created_at DESC);
