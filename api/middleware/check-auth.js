@@ -7,6 +7,8 @@ module.exports = (req, res, next) => {
         req.userData = decoded;
         next();
     } catch (error) {
-        res.status(403).json({ error: { message: 'Access denied' } });
+        res.status(403).json({
+            error: { message: 'Access denied, no JWT token given' }
+        });
     }
 };
