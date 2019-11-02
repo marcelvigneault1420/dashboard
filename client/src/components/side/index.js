@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { NavLink } from 'react-router-dom';
 function Side() {
     return (
         <aside>
@@ -14,16 +14,16 @@ function Side() {
             <nav>
                 <ul>
                     <li>
-                        <button>Dashboard</button>
+                        <NavLink to="/dashboard">Dashboard</NavLink>
                     </li>
                     <li>
-                        <button>Clock</button>
+                        <NavLink to="/clock">Clock</NavLink>
                     </li>
                     <li>
-                        <button>ToDos</button>
+                        <NavLink to="/todos">ToDos</NavLink>
                     </li>
                     <li>
-                        <button>Blog</button>
+                        <NavLink to="/blog">Blog</NavLink>
                     </li>
                 </ul>
             </nav>

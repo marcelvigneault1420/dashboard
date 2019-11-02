@@ -2,9 +2,9 @@ import React from 'react';
 
 function Clock() {
     return (
-        <div>
+        <section>
             <h1>Clock</h1>
-        </div>
+        </section>
     );
 }
 

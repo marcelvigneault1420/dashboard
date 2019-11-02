@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Link } from 'react-router-dom';
 function Header() {
     return (
         <header>
@@ -14,7 +14,7 @@ function Header() {
                 <path d="M 0 2 L 0 4 L 24 4 L 24 2 Z M 0 11 L 0 13 L 24 13 L 24 11 Z M 0 20 L 0 22 L 24 22 L 24 20 Z"></path>
             </svg>
             <h1>
-                <a href="#">My life</a>
+                <Link to="/">My life</Link>
             </h1>
 
             <ul>

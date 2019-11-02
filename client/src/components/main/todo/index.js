@@ -2,9 +2,9 @@ import React from 'react';
 
 function ToDo() {
     return (
-        <div>
+        <section>
             <h1>To Do</h1>
-        </div>
+        </section>
     );
 }
 
